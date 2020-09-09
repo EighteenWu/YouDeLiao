@@ -11,7 +11,9 @@ import wdk0.com.youdeliao.mapper.UserMapper;
 import wdk0.com.youdeliao.model.User;
 import wdk0.com.youdeliao.provider.GitHubprovider;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.net.http.HttpRequest;
 import java.util.UUID;
 
@@ -40,7 +42,8 @@ public class AuthorizeController {
 //    登录成功后返回首页
     public String callback(@RequestParam(name = "code")String code,
                            @RequestParam(name = "state")String state,
-                           HttpServletRequest request
+                           HttpServletRequest request,
+                           HttpServletResponse response
                            ){
 
 //        快速创建对象Ctrl+alt+v
@@ -53,16 +56,17 @@ public class AuthorizeController {
         String accessToken = gitHubprovider.getAccessToken(accessTokenDto);
         GithubUser githubUser = gitHubprovider.getUser(accessToken);
 //        判断user是否不为空来判定登录装
-        if(githubUser!= null){
-            //登录成功，写cookie和session
+
+        if(githubUser != null){
             User user = new User();
-            user.setToken(UUID.randomUUID().toString());
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
             user.setName(githubUser.getLogin());
             user.setAccountId((String.valueOf(githubUser.getId())));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);
-            request.getSession().setAttribute("user",githubUser);
+            response.addCookie(new Cookie("token",token));
             return "redirect:/";
         }
         else{

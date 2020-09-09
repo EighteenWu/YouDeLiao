@@ -1,6 +1,8 @@
 package wdk0.com.youdeliao.model;
 
-public class User {
+import wdk0.com.youdeliao.mapper.UserMapper;
+
+public class User  {
     private int id;
     private String name;
     private String accountId;
@@ -55,4 +57,5 @@ public class User {
     public void setGmtModified(long gmtModified) {
         this.gmtModified = gmtModified;
     }
+
 }
