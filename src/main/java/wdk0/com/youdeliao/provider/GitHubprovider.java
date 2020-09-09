@@ -39,7 +39,6 @@ public class GitHubprovider {
         try {
             Response response = client.newCall(request).execute();
             String string = response.body().string();
-            System.out.println(string);
 
 //            通过githubuser的set方法来确定需要的字段值
             GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
