@@ -42,7 +42,6 @@ public class AuthorizeController {
 //    登录成功后返回首页
     public String callback(@RequestParam(name = "code")String code,
                            @RequestParam(name = "state")String state,
-                           HttpServletRequest request,
                            HttpServletResponse response
                            ){
 
@@ -55,8 +54,8 @@ public class AuthorizeController {
         accessTokenDto.setState(state);
         String accessToken = gitHubprovider.getAccessToken(accessTokenDto);
         GithubUser githubUser = gitHubprovider.getUser(accessToken);
-//        判断user是否不为空来判定登录装
 
+//        判断user是否不为空来判定登录
         if(githubUser != null){
             User user = new User();
             String token = UUID.randomUUID().toString();

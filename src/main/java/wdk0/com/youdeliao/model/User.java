@@ -3,12 +3,12 @@ package wdk0.com.youdeliao.model;
 import wdk0.com.youdeliao.mapper.UserMapper;
 
 public class User  {
-    private int id;
+    private Integer id;
     private String name;
     private String accountId;
     private String token;
-    private long gmtCreate;
-    private long gmtModified;
+    private Long gmtCreate;
+    private Long gmtModified;
 
     public int getId() {
         return id;

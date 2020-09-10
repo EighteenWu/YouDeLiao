@@ -1,19 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-
+<!--发布帖子页面-->
 <head>
     <title>有的聊</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel = "stylesheet" href="css/bootstrap.min.css" />
     <link rel = "stylesheet" href="css/bootstrap-theme.min.css" />
+    <link rel = "stylesheet" href="css/bbs.css" />
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 
 <body>
-
-
-
-
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -54,11 +51,44 @@
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
+
     </div><!-- /.container-fluid -->
 </nav>
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-md-9 col-md-12 col-sm-12" >
+            <h2>
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                发帖
+            </h2>
+            <hr>
 
+            <form action="/posting" method="post">
+                <div class="form-group">
+                    <label for="title">帖子主题(简单扼要)</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="问题标题...">
+                </div>
+                <div class="form-group">
+                    <label for="title">帖子内容</label>
+                    <textarea name="description" id="description" class="form-control" cols="30" rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tag">添加标签:</label>
+                    <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签内容，逗号隔开...">
+                </div>
+                <div class="alert alert-danger"  th:text="${error}"></div>
+                <button type="submit" class="btn btn-success btn-posting">发帖</button>
+            </form>
+        </div>
+
+        <div class="col-md-3 col-md-12 col-sm-12" >
+            <h3>注意事项</h3>
+            1、请不要发布政治敏感内容，无聊灌水内容<br>
+            2、注意文明用词<br>
+            3、账号且用且珍惜
+        </div>
+    </div>
+</div>
 <!--bootStrsp在body之前引入样式-->
-
-
 </body>
 </html>

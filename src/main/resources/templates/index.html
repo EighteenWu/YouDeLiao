@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-
+<!--主页面-->
 <head>
     <title>有的聊</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -41,6 +41,9 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
 <!--                url第一个参数用？号，后面的参数用&来区分-->
+                <li>
+                    <a href="/posting">发帖</a>
+                </li>
                 <li  th:if="${session.user == null}"><a href="/login">登录</a></li>
                 <li class="dropdown" th:if="${session.user != null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>

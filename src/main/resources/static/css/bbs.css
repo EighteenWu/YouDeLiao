@@ -1,0 +1,13 @@
+body{
+    background: #efefef;
+}
+.main{
+    margin: 30px;
+    background: white;
+}
+.btn-posting{
+    float: right;
+}
+.alert-danger{
+    height: 50px;
+}
