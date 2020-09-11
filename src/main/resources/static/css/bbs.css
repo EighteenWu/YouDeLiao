@@ -11,3 +11,12 @@ body{
 .alert-danger{
     height: 50px;
 }
+.media-object {
+    height: 40px;
+    width: 40px;
+}
+.text-desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}

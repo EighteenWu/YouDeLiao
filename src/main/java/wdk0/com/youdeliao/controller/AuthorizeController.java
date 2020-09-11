@@ -56,7 +56,7 @@ public class AuthorizeController {
         GithubUser githubUser = gitHubprovider.getUser(accessToken);
 
 //        判断user是否不为空来判定登录
-        if(githubUser != null){
+        if(githubUser != null && githubUser.getId() != null){
             User user = new User();
             String token = UUID.randomUUID().toString();
             user.setToken(token);
@@ -64,6 +64,7 @@ public class AuthorizeController {
             user.setAccountId((String.valueOf(githubUser.getId())));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setAvatarUrl(githubUser.getAvatarUrl());
             userMapper.insert(user);
             response.addCookie(new Cookie("token",token));
             return "redirect:/";

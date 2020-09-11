@@ -32,22 +32,40 @@ public class PostController {
 
     @PostMapping("/posting")
     public String doPosting(
-            @RequestParam("title") String title,
-            @RequestParam("description") String description,
-            @RequestParam("tag") String tag,
+            @RequestParam(value = "title",required = false) String title,
+            @RequestParam(value = "description",required = false) String description,
+            @RequestParam(value = "tag",required = false) String tag,
             HttpServletRequest request,
             Model model) {
+//        判断标题，内容，标签是否未空，空的话，页面给告警信息
+        model.addAttribute("title",title);
+        model.addAttribute("description",description);
+        model.addAttribute("tag",tag);
+        if (title == null || title == ""){
+            model.addAttribute("error","标题不能为空");
+            return "posting";
+        }
+        if (description == null || description ==""){
+            model.addAttribute("error","帖子内容不能为空");
+            return "posting";
+        }
+        if (tag == null ||tag == ""){
+            model.addAttribute("error","帖子标签不能为空");
+            return "posting";
+        }
 
         User user = new User();
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                String token = cookie.getValue();
-                user = userMapper.findByToken(token);
-                if (user != null) {
-                    request.getSession().setAttribute("user", user);
+        if (cookies !=null && cookies.length !=0) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    String token = cookie.getValue();
+                    user = userMapper.findByToken(token);
+                    if (user != null) {
+                        request.getSession().setAttribute("user", user);
+                    }
+                    break;
                 }
-                break;
             }
         }
 //        未登录，直接返回到首页
@@ -55,7 +73,6 @@ public class PostController {
             model.addAttribute("error","用户未登录");
             return "posting";
         }
-
         Post post = new Post();
         post.setTitle(title);
         post.setDescription(description);

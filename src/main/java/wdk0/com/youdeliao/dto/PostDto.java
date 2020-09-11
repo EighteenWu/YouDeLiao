@@ -1,11 +1,11 @@
-package wdk0.com.youdeliao.model;
+package wdk0.com.youdeliao.dto;
 
 import lombok.Data;
-
-import java.security.PrivateKey;
+import wdk0.com.youdeliao.model.Post;
+import wdk0.com.youdeliao.model.User;
 
 @Data
-public class Post {
+public class PostDto {
     private Integer id;
     private String title;
     private String description;
@@ -16,4 +16,5 @@ public class Post {
     private Integer viewCount;
     private Integer commentCount;
     private Integer likeCount;
+    private User user;
 }
