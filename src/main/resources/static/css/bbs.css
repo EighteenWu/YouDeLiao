@@ -20,3 +20,9 @@ body{
     font-weight: normal;
     color: #999;
 }
+.pagination{
+    float: right;
+}
+.list-group-section{
+    padding-top: 15px;
+}

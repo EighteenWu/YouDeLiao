@@ -71,7 +71,7 @@ public class PostController {
 //        未登录，直接返回到首页
         if (user == null){
             model.addAttribute("error","用户未登录");
-            return "posting";
+            return "redirect:/login";
         }
         Post post = new Post();
         post.setTitle(title);

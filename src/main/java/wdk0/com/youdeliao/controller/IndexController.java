@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wdk0.com.youdeliao.dto.GithubUser;
+import wdk0.com.youdeliao.dto.PaginationDto;
 import wdk0.com.youdeliao.dto.PostDto;
 import wdk0.com.youdeliao.mapper.PostMapper;
 import wdk0.com.youdeliao.mapper.UserMapper;
@@ -33,6 +34,7 @@ public class IndexController {
                         Model model,
                         @RequestParam(name = "page",defaultValue = "1")Integer page,
                         @RequestParam(name = "size",defaultValue = "5")Integer size){
+
         Cookie[] cookies = request.getCookies();
 //        首页cookie为空的时候不进行操作
         if (cookies !=null && cookies.length !=0) {
@@ -48,8 +50,8 @@ public class IndexController {
             }
         }
 
-        List<PostDto> postList = postService.list(page,size);
-        model.addAttribute("postList",postList);
+        PaginationDto pagination = postService.list(page,size);
+        model.addAttribute("pagination",pagination);
 
         return "index";
     }
