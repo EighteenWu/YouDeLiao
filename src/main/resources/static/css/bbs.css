@@ -26,3 +26,28 @@ body{
 .list-group-section{
     padding-top: 15px;
 }
+.meta{
+    min-height: 20px;
+    line-height: 20px;
+    font-size: 13px;
+}
+.glyphicon-comment{
+    color: #999;
+    margin-right: 15px;
+}
+.glyphicon-inbox{
+    color: #999;
+    margin-right: 15px;
+}
+.glyphicon-edit{
+    color: #999;
+    margin-right: 15px;
+}
+.glyphicon-share-alt{
+    color: #999;
+    margin-right: 15px;
+}
+.media-object{
+    height: 50px;
+    width: 50px;
+}

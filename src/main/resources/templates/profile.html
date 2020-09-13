@@ -28,7 +28,7 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${post.title}"></h4>
+                    <h4 class="media-heading"><a th:href="@{'/post/'+${post.id}}" th:text="${post.title}"></a></h4>
                     <span class="text-desc" th:text="${post.description}"></span><br>
                     <span class="text-desc" th:text="${post.user.name}"></span>
                     <span class="text-desc" th:text="${post.commentCount}"></span>人回复 ·
@@ -49,7 +49,7 @@
                 </ul>
             </nav>
         </div>
-<!--右侧菜单栏-->
+        <!--右侧菜单栏-->
         <div class="col-md-3 col-md-12 col-sm-12" >
             <div class="list-group-section">
                 <a href="/profile/posts"   th:class="${section == 'posts'}? 'active list-group-item badge' : 'list-group-item'">
@@ -63,7 +63,7 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
 </div>
 <!--bootStrsp在body之前引入样式-->
 </body>

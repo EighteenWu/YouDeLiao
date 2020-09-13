@@ -113,4 +113,17 @@ public class PostService {
         paginationDto.setPosts(postDtoList);
         return paginationDto;
     }
+/** 
+* @Description:
+* @Param: [id]
+* @return: wdk0.com.youdeliao.dto.PostDto
+*/
+    public PostDto getById(Integer id) {
+        Post post = postMapper.getById(id);
+        PostDto postDto = new PostDto();
+        User user = userMapper.findById(post.getCreator());
+        postDto.setUser(user);
+        BeanUtils.copyProperties(post,postDto);
+        return postDto;
+    }
 }

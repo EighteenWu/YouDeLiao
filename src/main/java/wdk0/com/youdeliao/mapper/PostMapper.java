@@ -27,4 +27,7 @@ public interface PostMapper {
 
     @Select("SELECT COUNT(1) FROM post WHERE creator = #{userId}")
     Integer countByUserId(@Param(value = "userId")Integer userId);
+
+    @Select("select * from post where id = #{id}")
+    Post getById(@Param(value = "id") Integer id);
 }

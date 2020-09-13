@@ -12,9 +12,7 @@ import wdk0.com.youdeliao.model.User;
 import wdk0.com.youdeliao.provider.GitHubprovider;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.http.HttpRequest;
 import java.util.UUID;
 
 

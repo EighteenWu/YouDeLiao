@@ -22,8 +22,6 @@ public class PostController {
     @Autowired
     private PostMapper postMapper ;
 
-    @Autowired
-    private UserMapper userMapper;
 
     @GetMapping("/posting")
     public String posting() {
@@ -53,21 +51,7 @@ public class PostController {
             model.addAttribute("error","帖子标签不能为空");
             return "posting";
         }
-
-        User user = new User();
-        Cookie[] cookies = request.getCookies();
-        if (cookies !=null && cookies.length !=0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    user = userMapper.findByToken(token);
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
-        }
+        User user = (User) request.getSession().getAttribute("user");
 //        未登录，直接返回到首页
         if (user == null){
             model.addAttribute("error","用户未登录");

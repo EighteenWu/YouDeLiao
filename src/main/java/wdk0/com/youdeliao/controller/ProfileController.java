@@ -21,9 +21,6 @@ import java.security.PrivateKey;
 public class ProfileController {
 
     @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
     private PostService postService;
 
     
@@ -39,30 +36,10 @@ public class ProfileController {
             HttpServletRequest request,
             @RequestParam(name = "page",defaultValue = "1")Integer page,
             @RequestParam(name = "size",defaultValue = "5")Integer size){
-
-
-
-        User user =null;
-        Cookie[] cookies = request.getCookies();
-//        首页cookie为空的时候不进行操作
-        if (cookies !=null && cookies.length !=0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    user = userMapper.findByToken(token);
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
-        }
-
+        User user = (User) request.getSession().getAttribute("user");
         if (user == null){
             return "redirect:/login";
         }
-
-
         if ("posts".equals(action)){
             model.addAttribute("section","posts");
             model.addAttribute("sectionName","我的提问");
