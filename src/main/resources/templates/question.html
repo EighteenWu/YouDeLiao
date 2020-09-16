@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--发布帖子页面-->
+<!--问题详情页面-->
 <head>
     <title th:text="${post.title}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -17,6 +17,7 @@
 <div class="container-fluid main">
     <div class="row">
         <div class="col-md-9 col-md-12 col-sm-12 col-xs-12" >
+            <input th:type="hidden" name="id" th:value="${id}">
             <h3><span th:text="${post.title}"></span></h3>
             作者 <span class="text-desc" th:text="${post.user.name}"></span> |
             浏览量 <span class="text-desc" th:text="${post.viewCount}"></span> |
@@ -27,8 +28,11 @@
             <div class="meta">
                 <div class="glyphicon glyphicon-comment">评论</div>
                 <div class="glyphicon glyphicon-inbox">邀请</div>
-                <a th:href="@{'/post/'+${post.id}}"><div class="glyphicon glyphicon-edit">编辑</div></a>
+                <a th:href="@{'/post/'+${post.id}}" th:if="${session.user !=null && session.user.id == post.creator} ">
+                    <span class="glyphicon glyphicon-edit">编辑</span></a>
                 <a th:href="@{'/post/'+${post.id}}"><div class="glyphicon glyphicon-share-alt">转发</div></a>
+                <a th:href="@{'/delete/'+${post.id}}"  th:if="${session.user != null && session.user.id == post.creator}" >
+                    <span class="glyphicon glyphicon-trash">删除</span></a>
             </div>
         </div>
         <!--右侧菜单栏-->

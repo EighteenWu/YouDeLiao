@@ -3,15 +3,12 @@ package wdk0.com.youdeliao.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import wdk0.com.youdeliao.mapper.PostMapper;
-import wdk0.com.youdeliao.mapper.UserMapper;
+import org.springframework.web.bind.annotation.*;
+import wdk0.com.youdeliao.dto.PostDto;
 import wdk0.com.youdeliao.model.Post;
 import wdk0.com.youdeliao.model.User;
+import wdk0.com.youdeliao.service.PostService;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 //发帖
@@ -20,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 public class PostController {
 
     @Autowired
-    private PostMapper postMapper ;
+    private PostService postService;
 
 
     @GetMapping("/posting")
@@ -33,6 +30,7 @@ public class PostController {
             @RequestParam(value = "title",required = false) String title,
             @RequestParam(value = "description",required = false) String description,
             @RequestParam(value = "tag",required = false) String tag,
+            @RequestParam(value = "id",required = false)Integer id,
             HttpServletRequest request,
             Model model) {
 //        判断标题，内容，标签是否未空，空的话，页面给告警信息
@@ -64,7 +62,31 @@ public class PostController {
         post.setCreator(user.getId());
         post.setGmtCreate(System.currentTimeMillis());
         post.setGmtModified(post.getGmtCreate());
-        postMapper.create(post);
+        post.setId(id);
+        postService.createOrupdate(post);
         return "posting";
+    }
+    /**
+     * @Description: 问题详情编辑页面
+     * @Param: [id, model]
+     * @return: java.lang.String
+     */
+    @GetMapping("/post/{id}")
+    public String edit(@PathVariable(name = "id")Integer id,
+                       Model model){
+        PostDto post = postService.getById(id);
+        model.addAttribute("title",post.getTitle());
+        model.addAttribute("description",post.getDescription());
+        model.addAttribute("tag",post.getTag());
+        model.addAttribute("id",post.getId());
+        return "posting";
+    }
+
+//    删除功能
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable(name = "id")Integer id){
+        PostDto post = postService.getById(id);
+        postService.delete(post);
+        return "redirect:/profile/posts";
     }
 }

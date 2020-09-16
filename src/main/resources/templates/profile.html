@@ -28,7 +28,7 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading"><a th:href="@{'/post/'+${post.id}}" th:text="${post.title}"></a></h4>
+                    <h4 class="media-heading"><a th:href="@{'/question/'+${post.id}}" th:text="${post.title}"></a></h4>
                     <span class="text-desc" th:text="${post.description}"></span><br>
                     <span class="text-desc" th:text="${post.user.name}"></span>
                     <span class="text-desc" th:text="${post.commentCount}"></span>人回复 ·

@@ -6,10 +6,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import wdk0.com.youdeliao.mapper.UserMapper;
 import wdk0.com.youdeliao.model.User;
+import wdk0.com.youdeliao.model.UserExample;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Service
 public class SeesionIntercrptor implements HandlerInterceptor {
@@ -25,9 +27,12 @@ public class SeesionIntercrptor implements HandlerInterceptor {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
                     String token = cookie.getValue();
-                 User   user = userMapper.findByToken(token);
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
+                    UserExample userExample = new UserExample();
+                    userExample.createCriteria()
+                            .andTokenEqualTo(token);
+                    List<User> userList = userMapper.selectByExample(userExample);
+                    if (userList.size() !=0) {
+                        request.getSession().setAttribute("user",userList.get(0));
                     }
                     break;
                 }

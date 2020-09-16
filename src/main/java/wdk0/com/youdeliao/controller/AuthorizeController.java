@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import wdk0.com.youdeliao.dto.AccessTokenDto;
 import wdk0.com.youdeliao.dto.GithubUser;
-import wdk0.com.youdeliao.mapper.UserMapper;
 import wdk0.com.youdeliao.model.User;
 import wdk0.com.youdeliao.provider.GitHubprovider;
+import wdk0.com.youdeliao.service.UserService;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
@@ -23,7 +24,7 @@ public class AuthorizeController {
     private GitHubprovider gitHubprovider;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @Value("${github.client.id}")
     private String clidentid;
@@ -60,10 +61,8 @@ public class AuthorizeController {
             user.setToken(token);
             user.setName(githubUser.getLogin());
             user.setAccountId((String.valueOf(githubUser.getId())));
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatarUrl());
-            userMapper.insert(user);
+            userService.createUpdate(user);
             response.addCookie(new Cookie("token",token));
             return "redirect:/";
         }
@@ -71,5 +70,16 @@ public class AuthorizeController {
             return "redirect:/login";
         }
 
+    }
+//    登处功能
+    @GetMapping("/logout")
+    public  String logout(HttpServletRequest request,
+                         HttpServletResponse response){
+//        建立一个新的空cookie，将其类型设置为立即清除，再添加进去
+        request.getSession().removeAttribute("user");
+       Cookie cookie = new Cookie("token","null");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
     }
 }
