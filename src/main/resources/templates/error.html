@@ -13,13 +13,14 @@
 
 </head>
 
-<body >
-    <div class="jumbotron">
-        <h1>页面请求错误</h1>
-        <p th:text="${message}"></p>
-        <p><a class="btn btn-primary btn-lg" href="/" role="button">点击按钮返回首页</a></p>
+<body>
+<div th:insert="navagation :: nav"></div>
+<div class="jumbotron">
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+        <h1>出错啦！！！</h1>
+        <p th:text="${message}">页面不见了，稍后再试试吧~</p>
+        <p><a class="btn btn-primary btn-lg" href="/" role="button">回到主页</a></p>
     </div>
 </div>
-
 </body>
 </html>

@@ -12,8 +12,5 @@ public class CustomizeException  extends RuntimeException{
         return message;
     }
 
-    public CustomizeException(String message){
-        this.message = message;
 
-    }
 }

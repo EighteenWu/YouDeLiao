@@ -9,6 +9,7 @@ import wdk0.com.youdeliao.dto.PaginationDto;
 import wdk0.com.youdeliao.dto.PostDto;
 import wdk0.com.youdeliao.exception.CustomizeErrorCode;
 import wdk0.com.youdeliao.exception.CustomizeException;
+import wdk0.com.youdeliao.mapper.PostExtMapper;
 import wdk0.com.youdeliao.mapper.PostMapper;
 import wdk0.com.youdeliao.mapper.UserMapper;
 import wdk0.com.youdeliao.model.Post;
@@ -25,6 +26,9 @@ public class PostService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private PostExtMapper postExtMapper;
 
 /**
 * @Description: 首页问题列表
@@ -166,5 +170,16 @@ public class PostService {
     */
     public void delete(PostDto post) {
         postMapper.deleteByPrimaryKey(post.getId());
+    }
+/** 
+* @Description: 阅读数累计功能
+* @Param: [id]
+* @return: void
+*/
+    public void incView(Integer id){
+        Post post = new Post();
+        post.setId(id);
+        post.setViewCount(1);
+       postExtMapper.incView(post);
     }
 }

@@ -1,16 +1,16 @@
 package wdk0.com.youdeliao.advice;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 import wdk0.com.youdeliao.exception.CustomizeException;
 
-import javax.servlet.http.HttpServletRequest;
+
 
 @ControllerAdvice
 public class CustomizeErrorHandle {
+
     @ExceptionHandler(Exception.class)
     ModelAndView handle(Throwable ex, Model model) {
        if (ex instanceof CustomizeException){

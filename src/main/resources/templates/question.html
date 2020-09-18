@@ -23,7 +23,8 @@
             浏览量 <span class="text-desc" th:text="${post.viewCount}"></span> |
             发布时间 <span th:text="${#dates.format(post.getGmtCreate(),'yyyy-MM-dd HH:mm')}"></span>
             <hr>
-            <div class="col-lg-12 col-md-12 col-md-12 col-sm-12 col-xs-12" th:text="${post.description}"></div>
+            <div class="col-lg-12 col-md-12 col-md-12 col-sm-12 col-xs-12" th:utext="${post.description}">
+            </div>
             <hr class="col-lg-12 col-md-12 col-md-12 col-sm-12 col-xs-12">
             <div class="meta">
                 <div class="glyphicon glyphicon-comment">评论</div>
